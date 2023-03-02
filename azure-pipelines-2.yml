@@ -1,0 +1,99 @@
+
+name: $(BuildDefinitionName).$(Date:yyMMdd)$(Rev:.r)
+
+trigger: none
+ 
+parameters: 
+- name: CommitID
+  displayName: Commit ID
+  type: string
+  default: ' '
+variables:
+  COMMIT_ID: ${{ parameters.CommitID }} 
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: refs/heads/master
+jobs:
+- job: SFDX_Deployment_Pipeline
+  displayName: SFDX Deployment Pipeline
+  timeoutInMinutes: 10000
+  cancelTimeoutInMinutes: 1
+  pool:
+    vmImage: ubuntu-latest 
+  steps:
+    - checkout: self
+      clean: true
+      persistCredentials: true
+
+    - task: Bash@3
+      displayName: Install SFDX Cli
+      inputs:
+        targetType: 'inline'
+        script: |
+          echo 'Installing sfdx cli'
+          npm install -g sfdx-cli
+          echo 'Installing sfdx git delta'
+          echo y | sfdx plugins:install sfdx-git-delta
+      
+
+    - task: PowerShell@2
+      name: RestResponeGetCommit
+      displayName: Get previous commit Id
+      inputs:
+        targetType: inline
+        script: >-
+          $prevCommitId=$(git rev-parse HEAD^)
+
+
+           Write-Host "Id : $prevCommitId"
+
+           Write-Host "##vso[task.setvariable variable=prevCommitId;isOutput=true]$prevCommitId"
+        
+    - task: PowerShell@2
+      displayName: Generate SFDX Git Delta
+      inputs:
+        targetType: 'inline'
+        script: |
+         if("$env:COMMIT_ID" -eq " " -or "")
+          {
+            #$preid=$(RestResponeGetCommit.prevCommitId)
+            #Write-host "id:$preid"
+          $path = "delta/src"
+            Remove-Item $path -Recurse
+            sfdx sgd:source:delta --from $(cat build/oldCommit.txt)  --output delta/ --generate-delta
+            Get-Content delta/package/package.xml 
+
+            $sourcePath = "delta/package/package.xml"
+            $destinationPath = "delta/src" 
+            
+            Move-Item -path $sourcePath -destination $destinationPath
+
+            Get-Content delta/src/package.xml 
+            $packagePath = "delta/package"
+            $destructivePath = "delta/destructiveChanges" 
+            #Remove-Item $packagePath -Recurse
+            #Remove-Item $destructivePath -Recurse
+          }else
+          {
+            $prevCommit = $env:COMMIT_ID
+            $prevCommitID = $prevCommit.trim()
+            Write-host $prevCommitID
+            $path = "delta/src"
+            Remove-Item $path -Recurse
+            sfdx sgd:source:delta --from $prevCommitID --output delta/ --generate-delta
+            Get-Content delta/package/package.xml 
+
+            $sourcePath = "delta/package/package.xml"
+            $destinationPath = "delta/src" 
+            
+            Move-Item -path $sourcePath -destination $destinationPath
+
+            Get-Content delta/src/package.xml 
+            $packagePath = "delta/package"
+            $destructivePath = "delta/destructiveChanges" 
+            #Remove-Item $packagePath -Recurse
+            #Remove-Item $destructivePath -Recurse
+          }
+         
