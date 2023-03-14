@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- task: sendmailthroughtask@0
+  inputs:
+    CommitID: '3a41f21cabe3eb720d0433ad456bd9a9830cc946'
+    To: 'sivaranjanim@rajasri.net'
+    Choose: 'Subject'
+    Subject: 'test'
+    BodyAsHtml: false
+    AddAttachment: false
+    SmtpServer: 'smtp.gmail.com'
+    SmtpUsername: 'sivaranjani@minusculetechnologies.com'
+    SmtpPassword: 'jsozbjubuuubrsgo'
