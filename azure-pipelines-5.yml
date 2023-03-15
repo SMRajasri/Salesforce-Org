@@ -1,0 +1,35 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- task: Task5@0
+  inputs:
+    targetType: 'inline'
+    script: |
+      $GIT_TOKEN = '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'
+      $githeader =@{
+          Authorization = 'token $GIT_TOKEN'
+          Accept = 'application/vnd.github.v3+json'
+      }
+      
+      $commitUrl = 'https://api.github.com/repos/SMRajasri/Salesforce-Org/commits'
+      $commitResponse = Invoke-RestMethod -Uri $commitUrl -Headers $githeader -Method GET #| ConvertTo-Json > commis.json
+      
+      $commitCount = $commitResponse.count
+      Write-Host 'Total Commit ID : $commitCount'
+      Write-Host 'Latest Commit ID : $($commitResponse[0].sha)'
