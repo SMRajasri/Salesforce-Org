@@ -21,6 +21,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $prevCommitId=$(git rev-parse HEAD^)
+      $prevCommitId = $(git rev-parse HEAD^)
       
       Write-Host "$prevCommitId"
