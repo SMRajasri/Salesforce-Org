@@ -33,3 +33,7 @@ steps:
       $commitCount = $commitResponse.count
       Write-Host 'Total Commit ID : $commitCount'
       Write-Host 'Latest Commit ID : $($commitResponse[0].sha)'
+      $objs = '$(azureADGroupsFromString)' | ConvertFrom-Json
+      foreach( $obj in $objs){
+          Write-Host ("displayName:{0} Id:{1}" -f $obj.displayName, $obj.Id)
+      } 
