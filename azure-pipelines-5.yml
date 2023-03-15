@@ -36,4 +36,11 @@ steps:
       $objs = '$(azureADGroupsFromString)' | ConvertFrom-Json
       foreach( $obj in $objs){
           Write-Host ("displayName:{0} Id:{1}" -f $obj.displayName, $obj.Id)
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Hello world'
       } 
