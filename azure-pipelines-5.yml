@@ -10,8 +10,23 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- powershell: |
+    $GIT_TOKEN = "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"
+    $githeader =@{
+        Authorization = "token $GIT_TOKEN"
+        Accept = "application/vnd.github.v3+json"
+    }
+
+    $commitUrl = "https://api.github.com/repos/SMRajasri/Salesforce-Org/commits"
+    $commitResponse = Invoke-RestMethod -Uri $commitUrl -Headers $githeader -Method GET #| ConvertTo-Json > commis.json
+
+    $commitCount = $commitResponse.count
+    Write-Host "Total Commit ID : $commitCount"
+    Write-Host "Latest Commit ID : $($commitResponse[0].sha)"
+    
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
+
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
