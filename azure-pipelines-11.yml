@@ -19,4 +19,5 @@ steps:
   displayName: 'Run a multi-line script'
 - task: ExeTask@0
   inputs:
-    script: 'Write-Host "Hello, world!"'
+    script: 
+      Write-Host "Hello, world!"
