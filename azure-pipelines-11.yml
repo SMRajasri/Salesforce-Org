@@ -23,5 +23,4 @@ steps:
     targetType: 'inline'
     script: |
       $prevCommitId=$(git rev-parse HEAD^)
-      Write-Host 'Id : $prevCommitId'
-      Write-Host '##vso[task.setvariable variable=prevCommitId;isOutput=true]$prevCommitId'
+      Write-Host "Id : $prevCommitId"
