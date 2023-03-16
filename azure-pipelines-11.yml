@@ -22,5 +22,5 @@ steps:
     displayName: 'Get previous commit Id'
     targetType: 'inline'
     script: |
-      $prevCommitId=$(git rev-parse HEAD^)
-      Write-Host "Id : $prevCommitId"
+      $prevCommitId = $(git rev-parse HEAD^)
+      Write-Host "$prevCommitId"
