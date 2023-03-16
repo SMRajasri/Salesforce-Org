@@ -19,8 +19,8 @@ steps:
   displayName: 'Run a multi-line script'
 - task: Task2@0
   inputs:
-    displayName: 'Get previous commit Id'
     targetType: 'inline'
     script: |
       $prevCommitId = $(git rev-parse HEAD^)
-      Write-Output "$prevCommitId"
+      
+      Write-Host "$prevCommitId"
