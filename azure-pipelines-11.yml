@@ -11,8 +11,4 @@ pool:
 
 steps:
 - script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-         @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "Install-PackageProvider NuGet -Scope CurrentUser -Force"
-        
+  displayName: 'Run a one-line script'        
