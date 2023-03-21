@@ -1,0 +1,417 @@
+{
+  "status": 0,
+  "result": {
+    "checkOnly": true,
+    "completedDate": "2023-02-24T12:55:00.000Z",
+    "createdBy": "0055j000005GfoV",
+    "createdByName": "Bhuvanesh Kumar",
+    "createdDate": "2023-02-24T12:54:56.000Z",
+    "details": {
+      "componentSuccesses": [
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.NewLastWeek",
+          "id": "00B5j00000HLihfEAD",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Probability",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.ClosingNextMonth",
+          "id": "00B5j00000HLihiEAD",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.ClosingThisMonth",
+          "id": "00B5j00000HLihaEAD",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Default_Opportunity_Pipeline",
+          "id": "00B5j00000HLijKEAT",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.MyOpportunities",
+          "id": "00B5j00000HLiigEAD",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "LightningComponentBundle",
+          "created": true,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/lwc/lwcLookUp",
+          "fullName": "lwcLookUp",
+          "id": "0Rb5j000000yL8NCAU",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.StageName",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.TotalOpportunityQuantity",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.TrackingNumber__c",
+          "id": "00N5j00000F8cusEAB",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Type",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomObject",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "WebLink",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.DeliveryStatus",
+          "id": "00b5j000001lcA3AAI",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.AllOpportunities",
+          "id": "00B5j00000HLifgEAD",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Private",
+          "id": "00B5j00000HLihnEAD",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Won",
+          "id": "00B5j00000HLihxEAD",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/package.xml",
+          "fullName": "package.xml",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.AccountId",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Amount",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.CampaignId",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.CloseDate",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.ContractId",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.CurrentGenerators__c",
+          "id": "00N5j00000F8cuoEAB",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.DeliveryInstallationStatus__c",
+          "id": "00N5j00000F8cupEAB",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Description",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.ExpectedRevenue",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.IqScore",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.IsPrivate",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.LeadSource",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.MainCompetitors__c",
+          "id": "00N5j00000F8cuqEAB",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Name",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.NextStep",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.OrderNumber__c",
+          "id": "00N5j00000F8curEAB",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.OwnerId",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.Pricebook2Id",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "ListView",
+          "created": false,
+          "createdDate": "2023-02-24T12:55:00.000Z",
+          "deleted": false,
+          "fileName": "zip/objects/Opportunity.object",
+          "fullName": "Opportunity.NewThisWeek",
+          "id": "00B5j00000HLihqEAD",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      },
+      "componentFailures": []
+    },
+    "done": true,
+    "id": "0Af5j00000PLKfZCAX",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2023-02-24T12:55:00.000Z",
+    "numberComponentErrors": 0,
+    "numberComponentsDeployed": 35,
+    "numberComponentsTotal": 35,
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2023-02-24T12:54:57.000Z",
+    "status": "Succeeded",
+    "success": true
+  }
+}
