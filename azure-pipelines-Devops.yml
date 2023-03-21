@@ -17,3 +17,72 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+- task: Task1@0
+  inputs:
+    script: |
+      echo 'Installing sfdx cli'
+      npm install -g sfdx-cli
+      sfdx force:auth:jwt:grant --clientid $(UAT_consumerkey) --jwtkeyfile server.key --username $(UAT_username) --instanceurl $(url)
+      
+      
+      sfdx force:mdapi:deploy -d src/. -w 500 -u $(UAT_username) -l NoTestRun -c
+      
+      sfdx force:mdapi:deploy:report -u $(UAT_username) --json > deploymentOut.json
+- task: Task2@0
+  inputs:
+    script: |
+      $prevCommitId = $(git rev-parse HEAD)
+       Write-Host "$prevCommitId" 
+      $pat = $env:GIT_TOKEN
+       Write-Host $pat
+      $githeader =@{
+      Authorization = "token $pat"
+      Accept = "application/vnd.github.v3+json"
+      } 
+      $commitID = $env:BUILD_SOURCEVERSION
+      Write-Host $commitID 
+      $mergeCommitsUrl ='https://api.github.com/repos/SMRajasri/Salesforce-Org/commits/'+$commitID  
+      $mergeCommitsResponse = Invoke-RestMethod -Uri $mergeCommitsUrl -Headers $githeader -Method Get
+      $commitCount = $mergeCommitsResponse.count
+      Write-Host "Total Commit ID : $mergeCommitsResponse "
+       Write-Host "Latest Commit ID : $($mergeCommitsResponse[0].sha)"
+       Write-Host "Commit Author Name:  $mergeCommitsResponse[0]" 
+       $commitUrl = "https://api.github.com/repos/SMRajasri/Salesforce-Org/commits?author=smrajasri&perpage=100"
+       $commitResponse = Invoke-RestMethod -Uri $commitUrl -Headers $githeader -Method Get
+      $commitCount1 = $commitResponse.count
+       Write-Host "Count: $commitCount1"
+      
+       $email=''
+      for($i=0; $i -lt $commitCount1; $i++)
+      {
+         $authorName = $commitResponse[$i].author.login
+          $authorEmail = $commitResponse[$i].commit.author.email
+         Write-Host "authorName : $authorName"
+      Write-Host "authorEmail : $authorEmail "
+        
+      }
+      
+       if([string]::IsNullOrEmpty($email))
+      {
+          $email = 'sm@rajasri.net'
+      }
+      
+      Write-Host "Author Email: $email"
+      #Write-Host "##vso[task.setvariable variable=authorEmail;isOutput=true;]$email"
+      
+             
+      $sendAdress = "sivaranjanim@rajasri.net" 
+      $subject =  "Test Validation Sample"
+      $body = "Sending Validation Sample"
+      $to    =  "sivaranjanim@rajasri.net" 
+      #$Cc   =  "sivaranjani@minusculetechnologies.com"
+      $from    =  "sivaranjani@minusculetechnologies.com"
+      $mail = New-Object System.Net.Mail.Mailmessage $from, $to, $subject, $body
+      #$mail.cc.Add($Cc)
+      $mail.IsBodyHTML=$true
+      $server = "smtp.gmail.com"
+      $port   = 25
+      $smtp = New-Object System.Net.Mail.SMTPClient $server,$port
+      $smtp.EnableSsl = $true
+      $smtp.Credentials = New-Object System.Net.NetworkCredential("sivaranjani@minusculetechnologies.com", "hyifmpsdxomntpbd")
+      $smtp.send($mail)
