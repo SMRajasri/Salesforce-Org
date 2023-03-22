@@ -86,3 +86,4 @@ steps:
       $smtp.EnableSsl = $true
       $smtp.Credentials = New-Object System.Net.NetworkCredential("sivaranjani@minusculetechnologies.com", "hyifmpsdxomntpbd")
       $smtp.send($mail)
+    workingDirectory: '/Assets'
