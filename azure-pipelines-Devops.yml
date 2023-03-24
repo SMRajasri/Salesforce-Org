@@ -68,7 +68,7 @@ steps:
             else{
               $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:UAT_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
             }
-
+            Write-Host ">>>>$url"
             $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
             $build = $response.value
             $logicId = $($build[0].release.artifacts.definitionReference.sourceVersion.id)
