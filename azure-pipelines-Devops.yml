@@ -50,8 +50,8 @@ steps:
 - task: Task2@0
   condition: and(succeeded(), eq('${{ parameters.DeploymentType }}', 'Delta'))
   env:
-        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-        IgnoreFiles: $(ExcludedFiles)
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+    IgnoreFiles: $(ExcludedFiles)
   inputs:
     script: |
       $header = @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
