@@ -88,5 +88,5 @@
         <members>*</members>
         <name>ReportType</name>
     </types>
-    <version>56.0</version>
+    <version>51.0</version>
 </Package>
