@@ -5,7 +5,7 @@ public class SampleXMLParse {
         doc.load(strResp);  
         Dom.XMLNode rootElement = doc.getRootElement();  
         for ( Dom.XMLNode childElement : rootElement.getChildElements() ) {
-            //root elements of each array
+            /// added root elements of each array
             system.debug(childElement.getName() + '-' + childElement.getText());
             for (Dom.XMLNode detailElement : childElement.getChildElements()){
                 //childs elements of each array
