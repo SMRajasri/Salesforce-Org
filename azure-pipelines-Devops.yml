@@ -74,14 +74,14 @@ steps:
             }
             Write-Host ">>>>$url"
             $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
-            $build = $response.value
-            $logicId = $($build[0].release.artifacts.definitionReference.sourceVersion.id)
+            $releaseCount = $response.Count
 
             if("$env:COMMIT_ID" -eq " " -or "")
             {
-                $releaseCount = $response.Count
                 if($releaseCount -ne 0)
                 {
+                  $build = $response.value
+                  $logicId = $($build[0].release.artifacts.definitionReference.sourceVersion.id)
                   $prevCommitId = $logicId
                 }
                 else
@@ -95,6 +95,7 @@ steps:
                 $prevCommitId = $env:COMMIT_ID.Trim()
                 
             }
+
 
             Write-Host "Previous Commit ID : $prevCommitId"
 
