@@ -69,7 +69,7 @@ steps:
       $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:PROD_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
       }
       else{
-      $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:UAT_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
+      $url = 'https://vsrm.dev.azure.com/sivaranjaniminuscule/Salesforce%20Demo/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:UAT_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
       }
        write-host "url : $url" 
        $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
