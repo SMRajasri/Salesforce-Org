@@ -60,7 +60,7 @@ steps:
       $url = "https://vsrm.dev.azure.com/sivaranjaniminuscule/Salesforce%20Demo/_apis/release/deployments?deploymentStatus=succeeded&definitionId=2&definitionEnvironmentId=2&queryOrder=descending?api-version=6.0"
       try {
         $response = Invoke-RestMethod -Uri $url -Method Get -Headers $header #| ConvertTo-Json > release.json
-        Get-Content ./release.json
+        #Get-Content ./release.json
         $releaseCount = $response.count
         Write-Host "Total Release : $releaseCount"
           }
