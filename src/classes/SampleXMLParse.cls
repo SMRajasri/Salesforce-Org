@@ -1,4 +1,4 @@
-//test
+//test 3
 public class SampleXMLParse {
 	public static void parseXMl(){
         String strResp = '<?xml version="1.0" encoding="UTF-8"?><Results><Account><UserId> 1234545656</UserId><Active> true </Active></Account><Quotes><Company><Name>Test1</Name><Type>IT</Type></Company><Company><Name>Test12</Name><Type>Farm</Type></Company></Quotes></Results>';
