@@ -54,7 +54,7 @@ steps:
     IgnoreFiles: $(ExcludedFiles)
   inputs:
     script: |
-      $header = @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+      $header = @{Authorization = "Bearer $env:AZURETOKEN"}
             $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
             write-host "branch : $currentBranchName"
             if($currentBranchName -eq $env:QA_ENV_NAME) {
