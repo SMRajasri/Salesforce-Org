@@ -74,6 +74,7 @@ steps:
        write-host "url : $url" 
        $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
        $releaseCount = $response.Count
+       Write-Host "$releaseCount"
       if('$env:COMMIT_ID' -eq ' ' -or '')
       {
           
