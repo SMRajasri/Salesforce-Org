@@ -99,7 +99,8 @@ steps:
       }
       else
       {
-        $prevCommitId = $env:COMMIT_ID.Trim()
+        Write-Host "Commit ID >>>>>>>>>>>>>>>>>>"
+        $prevCommitId = $(git rev-parse HEAD^) #$env:COMMIT_ID.Trim()
         Write-Host "Previous Commit Id : $prevCommitId"
       }
 
