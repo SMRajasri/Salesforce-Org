@@ -99,8 +99,10 @@ steps:
       md delta
       Write-Host "Files : $env:IgnoreFiles"
       $fileSplit = $env:IgnoreFiles.Split(' ')
-        New-Item .\ignorefiles 
-      Set-Content .\ignorefiles    $fileSplit prevCommitId -i .\ignorefiles --output delta/ --generate-delta 
+      New-Item .\ignorefiles 
+      Set-Content .\ignorefiles  $fileSplit
+            
+      sfdx sgd:source:delta --from $prevCommitId -i .\ignorefiles --output delta/ --generate-delta 
       Get-Content .\delta/package/package.xml
       
       
