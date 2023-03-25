@@ -128,7 +128,7 @@ jobs:
 
           $packagePath = "delta/package"
           $destructivePath = "delta/destructiveChanges" 
-          if ((!(Test-Path -Path $packagePath)) -or (!(Test-Path -Path $destructivePath))) {
+          if ((!(Test-Path -Path $packagePath))) {
               Remove-Item $packagePath -Recurse
               Remove-Item $destructivePath -Recurse
           }
