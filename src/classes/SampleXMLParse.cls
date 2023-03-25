@@ -3,6 +3,7 @@ public class SampleXMLParse {
         String strResp = '<?xml version="1.0" encoding="UTF-8"?><Results><Account><UserId> 1234545656</UserId><Active> true </Active></Account><Quotes><Company><Name>Test1</Name><Type>IT</Type></Company><Company><Name>Test12</Name><Type>Farm</Type></Company></Quotes></Results>';
         Dom.Document doc = new Dom.Document();  
         doc.load(strResp);  
+		//Added new comment
         Dom.XMLNode rootElement = doc.getRootElement();  
         for ( Dom.XMLNode childElement : rootElement.getChildElements() ) {
             /// added root elements of each array
