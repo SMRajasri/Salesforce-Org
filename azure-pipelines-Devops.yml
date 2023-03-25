@@ -100,7 +100,7 @@ jobs:
           else
           {
             Write-Host "Commit ID >>>>>>>>>>>>>>>>>>"
-            $prevCommitId = $(git rev-parse HEAD^) #$env:COMMIT_ID.Trim()
+            $prevCommitId = $env:COMMIT_ID.Trim()
             Write-Host "Previous Commit Id : $prevCommitId"
           }
 
