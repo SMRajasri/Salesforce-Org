@@ -44,9 +44,9 @@ steps:
   inputs:
     script: |
       echo 'Installing sfdx cli'
-      npm install -g sfdx-cli
-      echo 'Installing sfdx git delta'
-      echo y | sfdx plugins:install sfdx-git-delta
+      # npm install -g sfdx-cli
+      # echo 'Installing sfdx git delta'
+      # echo y | sfdx plugins:install sfdx-git-delta
 - task: Task2@0
   condition: and(succeeded(), eq('${{ parameters.DeploymentType }}', 'Delta'))
   env:
@@ -74,7 +74,8 @@ steps:
             }
             write-Host "$env:PROJECT_NAME"
             Write-Host ">>>>$url"
-            $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
+            $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get 
+            Write-Host ">>>$response"
             $releaseCount = $response.count
             Write-Host "$releaseCount"
             if("$env:COMMIT_ID" -eq " " -or "")
