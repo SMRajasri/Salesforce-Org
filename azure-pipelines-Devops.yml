@@ -80,7 +80,7 @@ steps:
       $releaseCount = $response.count
       Write-Host "Total Successfull Release : $releaseCount"           
 
-      $prevCommitId = "acedd25517820c4cebb7786c10021a07b2674982"
+      $prevCommitId = "c2dff003df548528ea6bfa41543e12b83fe44561"
       # if("$env:COMMIT_ID" -eq " " -or "")
       # {
       #   if($releaseCount -ne 0)
