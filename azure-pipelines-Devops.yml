@@ -113,8 +113,8 @@ steps:
       New-Item .\ignorefiles
       Set-Content .\ignorefiles  $fileSplit
       
-      sfdx sgd:source:delta --from $prevCommitId -i .\ignorefiles --output delta/ --generate-delta 
-      Get-Content .\delta/package/package.xml
+      sfdx sgd:source:delta --from $prevCommitId -i ./ignorefiles --output delta/ --generate-delta 
+      Get-Content ./delta/package/package.xml
       
       $folder = "delta/src"
       if (!(Test-Path -Path $folder)) {
