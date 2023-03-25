@@ -58,21 +58,21 @@ steps:
             $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
             write-host "branch : $currentBranchName"
             if($currentBranchName -eq $env:QA_ENV_NAME) {
-              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:Project_Name+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:QA_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
+              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:PROJECT_NAME+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:QA_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
             }
             elseif($currentBranchName -eq $env:QAFULL_ENV_NAME){ 
-              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:Project_Name+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:QAFULL_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
+              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:PROJECT_NAME+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:QAFULL_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
             } 
             elseif($currentBranchName -eq $env:UAT_ENV_NAME){ 
-              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:Project_Name+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:UAT_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
+              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:PROJECT_NAME+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:UAT_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
             } 
             elseif(($env:BUILD_SOURCEBRANCH).contains($env:PROD_ENV_NAME)){
-              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:Project_Name+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:PROD_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
+              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:PROJECT_NAME+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:PROD_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
             }
             else{
-              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:Project_Name+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:UAT_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
+              $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:PROJECT_NAME+"/_apis/release/deployments?deploymentStatus=succeeded&definitionId="+$env:DEFINITIONID+"&definitionEnvironmentId="+$env:UAT_ENVIRONMENTID+"&queryOrder=descending?"+$env:API_VERSION
             }
-            write-Host "$env:Project_Name"
+            write-Host "$env:PROJECT_NAME"
             Write-Host ">>>>$url"
             $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
             $releaseCount = $response.count
