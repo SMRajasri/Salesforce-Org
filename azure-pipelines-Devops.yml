@@ -82,16 +82,19 @@ steps:
             $build = $response.value
             $logicId = $($build[0].release.artifacts.definitionReference.sourceVersion.id)
             $prevCommitId = $logicId
+            Write-Host "Logic"
           }
           else
           {
             Write-Host "Total Successfull Release : $releaseCount"
             $prevCommitId = $(git rev-parse HEAD^)
+            
           }
       }
       else
       {
-          $prevCommitId = $env:COMMIT_ID.Trim()
+        Write-Host "Manual"
+        $prevCommitId = $env:COMMIT_ID.Trim()
           
       }
       Write-Host "Previous Commit ID : $prevCommitId" 
