@@ -71,55 +71,60 @@ steps:
       else{
       $url = 'https://vsrm.dev.azure.com/sivaranjaniminuscule/Salesforce%20Demo/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:UAT_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
       }
-       write-host "url : $url" 
-       $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
-            $releaseCount = $response.Count
-
-            if("$env:COMMIT_ID" -eq " " -or "")
-            {
-                if($releaseCount -ne 0)
-                {
-                  $build = $response.value
-                  $logicId = $($build[0].release.artifacts.definitionReference.sourceVersion.id)
-                  $prevCommitId = $logicId
-                }
-                else
-                {
-                  Write-Host "Total Successfull Release : $releaseCount"
-                  $prevCommitId = $(git rev-parse HEAD^)
-                }
-            }
-            else
-            {
-                $prevCommitId = $env:COMMIT_ID.Trim()
-                
-            }
-
-            Write-Host "Previous Commit ID : $prevCommitId"
-
-            md delta
-          
-            Write-Host "Files : $env:IgnoreFiles"
-
-            $fileSplit = $env:IgnoreFiles.Split(" ")
-            New-Item .\ignorefiles
-            Set-Content .\ignorefiles  $fileSplit
+      write-host "url: $url"
             
-            sfdx sgd:source:delta --from $prevCommitId -i .\ignorefiles --output delta/ --generate-delta 
-            Get-Content .\delta/package/package.xml
-            
-            $folder = "delta/src"
-            if (!(Test-Path -Path $folder)) {
-                 md delta/src
-            } 
+      $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
+      $releaseCount = $response.count
+      Write-Host "Total Successfull Release : $releaseCount"           
 
-            $sourcePath = "package/package.xml"
-            $destinationPath = "delta/src" 
-            Move-Item -path $sourcePath -destination $destinationPath
+      $prevCommitId = ""
+      if("$env:COMMIT_ID" -eq " " -or "")
+      {
+        if($releaseCount -ne 0)
+        {
+          $build = $response.value
+          $logicId = $($build[0].release.artifacts.definitionReference.sourceVersion.id)
+          $prevCommitId = $logicId
+          Write-Host "Previous Commit ID From last successfull Release : $prevCommitId"
+        }
+        else
+        {
+          $prevCommitId = $(git rev-parse HEAD^)
+          Write-Host "There is no successfull release for this Environment Id for now..."
+          Write-Host "Previous Commit Id : $prevCommitId"
+        }
+      }
+      else
+      {
+        $prevCommitId = $env:COMMIT_ID.Trim()
+        Write-Host "Previous Commit Id : $prevCommitId"
+      }
 
-            $packagePath = "delta/package"
-            $destructivePath = "delta/destructiveChanges" 
-            if ((!(Test-Path -Path $packagePath)) -or (!(Test-Path -Path $destructivePath))) {
-                Remove-Item $packagePath -Recurse
-                Remove-Item $destructivePath -Recurse
-            }
+      Write-Host "Previous Commit ID : $prevCommitId"
+
+      md delta
+    
+      Write-Host "Files : $env:IgnoreFiles"
+
+      $fileSplit = $env:IgnoreFiles.Split(" ")
+      New-Item .\ignorefiles
+      Set-Content .\ignorefiles  $fileSplit
+      
+      sfdx sgd:source:delta --from $prevCommitId -i .\ignorefiles --output delta/ --generate-delta 
+      Get-Content .\delta/package/package.xml
+      
+      $folder = "delta/src"
+      if (!(Test-Path -Path $folder)) {
+            md delta/src
+      } 
+
+      $sourcePath = "package/package.xml"
+      $destinationPath = "delta/src" 
+      Move-Item -path $sourcePath -destination $destinationPath
+
+      $packagePath = "delta/package"
+      $destructivePath = "delta/destructiveChanges" 
+      if ((!(Test-Path -Path $packagePath)) -or (!(Test-Path -Path $destructivePath))) {
+          Remove-Item $packagePath -Recurse
+          Remove-Item $destructivePath -Recurse
+      }
