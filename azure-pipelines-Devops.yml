@@ -35,7 +35,7 @@ jobs:
 - job: SFDX_Deployment_Pipeline
   displayName: SFDX Deployment Pipeline
   timeoutInMinutes: 10000
-  cancelTimeoutInMinutes: 
+  cancelTimeoutInMinutes: 1
   steps:
     - checkout: self
       clean: true
