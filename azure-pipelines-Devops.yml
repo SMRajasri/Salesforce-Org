@@ -122,13 +122,13 @@ jobs:
                 md delta/src
           } 
 
-          $sourcePath = "package/package.xml"
+          $sourcePath = "delta/package/package.xml"
           $destinationPath = "delta/src" 
           Move-Item -path $sourcePath -destination $destinationPath
 
           $packagePath = "delta/package"
           $destructivePath = "delta/destructiveChanges" 
-          if ((!(Test-Path -Path $packagePath))) {
+          if ((!(Test-Path -Path $packagePath)) -or (!(Test-Path -Path $destructivePath))) {
               Remove-Item $packagePath -Recurse
               Remove-Item $destructivePath -Recurse
           }
