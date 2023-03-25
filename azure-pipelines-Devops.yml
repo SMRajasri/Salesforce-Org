@@ -44,9 +44,9 @@ steps:
   inputs:
     script: |
       echo 'Installing sfdx cli'
-      # npm install -g sfdx-cli
-      # echo 'Installing sfdx git delta'
-      # echo y | sfdx plugins:install sfdx-git-delta
+      npm install -g sfdx-cli
+      echo 'Installing sfdx git delta'
+      echo y | sfdx plugins:install sfdx-git-delta
 - task: Task2@0
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
