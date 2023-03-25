@@ -72,8 +72,11 @@ steps:
       $url = 'https://vsrm.dev.azure.com/sivaranjaniminuscule/Salesforce%20Demo/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:UAT_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
       }
       write-host "url: $url"
-            
-      $response = Invoke-RestMethod -Uri $url -Headers $header -Method Get
+      $header1 = @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+      $url1 = "https://vsrm.dev.azure.com/sivaranjaniminuscule/Salesforce%20Demo/_apis/release/deployments?deploymentStatus=succeeded&definitionId=2&definitionEnvironmentId=2&queryOrder=descending?api-version=6.0"
+
+      write-host "url1: $url1"      
+      $response = Invoke-RestMethod -Uri $url1 -Headers $header1 -Method Get
       $releaseCount = $response.count
       Write-Host "Total Successfull Release : $releaseCount"           
 
