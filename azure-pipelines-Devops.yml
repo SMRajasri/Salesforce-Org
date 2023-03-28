@@ -40,6 +40,13 @@ jobs:
     - checkout: self
       clean: true
       persistCredentials: true    - 
+    - task: Task1@0
+      inputs:
+        script: |
+          echo 'Installing sfdx cli'
+          npm install -g sfdx-cli
+          echo 'Installing sfdx git delta'
+          echo y | sfdx plugins:install sfdx-git-delta
     - task: Task2@0
       env:
         SYSTEM_ACCESSTOKEN: $(System.AccessToken)
@@ -117,13 +124,6 @@ jobs:
               Remove-Item $packagePath -Recurse
               Remove-Item $destructivePath -Recurse
           }
-    - task: Task1@0
-      inputs:
-        script: |
-          echo 'Installing sfdx cli'
-          npm install -g sfdx-cli
-          echo 'Installing sfdx git delta'
-          echo y | sfdx plugins:install sfdx-git-delta
     - task: Task2@0
       env:
         SYSTEM_ACCESSTOKEN: $(System.AccessToken)
