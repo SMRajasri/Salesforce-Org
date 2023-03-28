@@ -40,6 +40,41 @@ jobs:
     - checkout: self
       clean: true
       persistCredentials: true  
+    - task: pluginshell2@0
+      inputs:
+        script: |
+          $pat = $env:GIT_TOKEN
+          Write-Host "pat : $pat"
+          $header = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("$pat")) }
+          Write-Host "header : $header"
+          $commitID = $env:BUILD_SOURCEVERSION
+          Write-Host "Commit : $commitID"
+          
+          Write-Host "EnvSourceVersion : $env:BUILD_SOURCEVERSION"
+          $mergeCommitsUrl = $env:GIT_SERVER_URL+$env:BUILD_REPOSITORY_NAME+"/commits/"+$commitID
+          Write-Host "mergeCommitsUrl : $mergeCommitsUrl"
+          
+          Write-Host "EnvReposName : $env:BUILD_REPOSITORY_NAME"
+          
+          Write-Host "EnvServerURL : $env:GIT_SERVER_URL"
+          $mergeCommitsResponse = Invoke-RestMethod -Uri $mergeCommitsUrl -Headers $header -Method Get
+          Write-Host "MergeCommitResponse : $mergeCommitsResponse"
+          
+          Write-Host "MergeCommitURL : $mergeCommitsUrl"
+          
+          Write-Host "MergeCommitHeader : $header"
+          $commitAuthorName = $mergeCommitsResponse.author.login
+          Write-Host "CommitAuthorName : $commitAuthorName"
+          $commitUrl = $env:GIT_SERVER_URL+$env:BUILD_REPOSITORY_NAME+"/commits?author="+$commitAuthorName+"&per_page=100"
+          $commitResponse = Invoke-RestMethod -Uri $commitUrl -Headers $header -Method Get
+          $commitCount = $commitResponse.count
+          
+          #Write-Host "Count: $commitCount"
+          $email=""
+          for($i=0; $i -lt $commitCount; $i++)
+          {
+          $authorName = $commitResponse[$i].author.login
+          }
     - task: Task1@0
       inputs:
         script: |
