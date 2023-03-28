@@ -39,8 +39,7 @@ jobs:
   steps:
     - checkout: self
       clean: true
-      persistCredentials: true  
-    - 
+      persistCredentials: true    - 
     - task: Task2@0
       inputs:
         script: |
