@@ -20,3 +20,7 @@ steps:
 - task: Task5@0
   inputs:
     script: Write-Host "Hello, world!"
+              $myVariable = "some name"
+          $myValue = "some value"
+            $myVariableNewValue = '##vso[task.setvariable variable=myVariable]' + $newValue
+            Write-Host $myVariableNewValue
