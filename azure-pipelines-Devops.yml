@@ -108,7 +108,8 @@ jobs:
           Write-Host "Previous Commit ID : $prevCommitId"
           md delta
           Write-Host "Files : $env:IgnoreFiles"
-          $fileSplit =  $env:IgnoreFiles.Split(" ")
+
+          $fileSplit = $env:IgnoreFiles.Split(" ")
           New-Item .\ignorefiles
           Set-Content .\ignorefiles  $fileSplit
           
@@ -118,16 +119,19 @@ jobs:
           $folder = "delta/src"
           if (!(Test-Path -Path $folder)) {
                 md delta/src
-          }
+          } 
+
           $sourcePath = "delta/package/package.xml"
           $destinationPath = "delta/src" 
           Move-Item -path $sourcePath -destination $destinationPath
+
           $packagePath = "delta/package"
           $destructivePath = "delta/destructiveChanges" 
           if ((!(Test-Path -Path $packagePath)) -or (!(Test-Path -Path $destructivePath))) {
               Remove-Item $packagePath -Recurse
               Remove-Item $destructivePath -Recurse
           }
+
     - task: Task2@0
       env:
         SYSTEM_ACCESSTOKEN: $(System.AccessToken)
