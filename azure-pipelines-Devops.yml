@@ -54,6 +54,8 @@ jobs:
       inputs:
         script: |
           Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
+          Write-Host "##vso[task.setvariable variable=IgnoreFiledetails;]$(ExcludedFiles)"
+          
           $header = @{Authorization = 'Bearer $SysAccessToken'}
           Write-Host "$SysAccessToken"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
@@ -105,12 +107,12 @@ jobs:
           }
           Write-Host "Previous Commit ID : $prevCommitId"
           md delta
-          Write-Host "Files : $env:IgnoreFiles"
-          $fileSplit = $env:IgnoreFiles.Split(" ")
-          New-Item .\ignorefiles
-          Set-Content .\ignorefiles  $fileSplit
+          Write-Host "Files : $IgnoreFiledetails"
+          $fileSplit = $IgnoreFiledetails.Split(" ")
+          New-Item .\IgnoreFiledetails
+          Set-Content .\IgnoreFiledetails  $fileSplit
           
-          sfdx sgd:source:delta --from $prevCommitId -i ./ignorefiles --output delta/ --generate-delta 
+          sfdx sgd:source:delta --from $prevCommitId -i ./IgnoreFiledetails --output delta/ --generate-delta 
           Get-Content ./delta/package/package.xml
           
           $folder = "delta/src"
