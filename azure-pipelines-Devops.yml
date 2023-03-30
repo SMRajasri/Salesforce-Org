@@ -109,10 +109,10 @@ jobs:
           md delta
           Write-Host "Files : $IgnoreFiledetails"
           $fileSplit = $IgnoreFiledetails.Split(" ")
-          New-Item .\IgnoreFiledetails
-          Set-Content .\IgnoreFiledetails  $fileSplit
+          New-Item .\ignorefiles
+          Set-Content .\ignorefiles  $fileSplit
           
-          sfdx sgd:source:delta --from $prevCommitId -i ./IgnoreFiledetails --output delta/ --generate-delta 
+          sfdx sgd:source:delta --from $prevCommitId -i ./ignorefiles --output delta/ --generate-delta 
           Get-Content ./delta/package/package.xml
           
           $folder = "delta/src"
