@@ -107,8 +107,8 @@ jobs:
           }
           Write-Host "Previous Commit ID : $prevCommitId"
           md delta
-          Write-Host "Files : $IgnoreFiledetails"
-          $fileSplit = $IgnoreFiledetails.Split(" ")
+          Write-Host "Files : $env:IgnoreFiles"
+          $fileSplit =  $env:IgnoreFiles.Split(" ")
           New-Item .\ignorefiles
           Set-Content .\ignorefiles  $fileSplit
           
