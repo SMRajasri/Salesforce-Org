@@ -53,7 +53,9 @@ jobs:
         IgnoreFiles: $(ExcludedFiles)
       inputs:
         script: |
-          $header = @{Authorization = 'Bearer $env:SYSTEM_ACCESSTOKEN'}
+          Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
+          $header = @{Authorization = 'Bearer $SysAccessToken'}
+          Write-Host "$SysAccessToken"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
           write-host "branch : $currentBranchName" 
           if($currentBranchName -eq $env:QA_ENV_NAME) {
