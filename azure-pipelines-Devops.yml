@@ -55,7 +55,7 @@ jobs:
         script: |
           Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
           Write-Host "##vso[task.setvariable variable=IgnoreFiledetails;]${{ parameters.Excluded }}"
-          
+          Write-Host "$IgnoreFiledetails"
           $header = @{Authorization = 'Bearer $SysAccessToken'}
           Write-Host "$SysAccessToken"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
