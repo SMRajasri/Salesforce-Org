@@ -40,11 +40,14 @@ jobs:
     - checkout: self
       clean: true
       persistCredentials: true 
-    - task: SalesforceSendAnEmail@0
+    - task: PowerShell@2
       inputs:
-        To: 'sivaranjanim@rajasri.net'
-        BodyAsHtml: false
-        AddAttachment: false
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+          
+          Write-Host "##vso[task.setvariable variable=authorEmail;isOutput=true]TestEmail"
+          Write-Host "##vso[task.setvariable variable=branchName;isOutput=true]Testbranch"
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
@@ -52,4 +55,5 @@ jobs:
           # Write your PowerShell commands here.
           
           Write-Host "Hello World"
-          Write-Host "$PowerShell@2.targetType"
+          Write-Host "$PowerShell@2.authorEmail"
+          Write-Host "$PowerShell@2.branchName"
