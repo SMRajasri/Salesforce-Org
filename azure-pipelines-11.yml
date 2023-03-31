@@ -44,8 +44,8 @@ jobs:
       inputs:
         displayName: 'Generate SFDX Git Delta'
         DeploymentType: 'Delta'
-        CommitID: '2323'
-        ExcludedFiles: 'safdsdf'
+        CommitID: '23234'
+        ExcludedFiles: 'ererter'
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
