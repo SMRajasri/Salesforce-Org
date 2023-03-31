@@ -44,8 +44,6 @@ jobs:
       inputs:
         displayName: 'Generate SFDX Git Delta'
         DeploymentType: 'Delta'
-        CommitID: '123'
-        ExcludedFiles: '232'
     - task: Task1@0
       inputs:
         script: |
