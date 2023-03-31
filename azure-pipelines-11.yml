@@ -4,19 +4,52 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- none
 
 pool:
   vmImage: ubuntu-latest
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'        
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your PowerShell commands here.
-      
-      Write-Host "Hello World"
-      Write-Host "$PowerShell@2.targetType"
+parameters: 
+- name: CommitID
+  displayName: Commit ID
+  type: string
+  default: ' '
+- name: DeploymentType
+  displayName: Deployment Type
+  type: string  
+  default: 'Delta' 
+  values:
+  - Delta
+  - Src   
+- name: AppNames
+  displayName: Application Names
+  type: string
+  default: 'ALL'  
+- name: Excluded
+  displayName: Excluded Files/Folders  
+  type: string
+  default: ' '  
+variables:
+  COMMIT_ID: ${{ parameters.CommitID }}  
+  ExcludedFiles: ${{ parameters.Excluded }} 
+jobs:
+- job: SFDX_Deployment_Pipeline
+  displayName: SFDX Deployment Pipeline
+  timeoutInMinutes: 10000
+  cancelTimeoutInMinutes: 1
+  steps:
+    - checkout: self
+      clean: true
+      persistCredentials: true 
+    - task: SalesforceSendAnEmail@0
+      inputs:
+        To: 'sivaranjanim@rajasri.net'
+        BodyAsHtml: false
+        AddAttachment: false
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+          
+          Write-Host "Hello World"
+          Write-Host "$PowerShell@2.targetType"
