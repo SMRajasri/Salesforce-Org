@@ -40,6 +40,80 @@ jobs:
     - checkout: self
       clean: true
       persistCredentials: true    - 
+    - task: SalesforceTask2@0
+      inputs:
+        script: |
+          $header = @{Authorization = 'Bearer $env:SYSTEM_ACCESSTOKEN'}
+          $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
+          write-host "branch : $currentBranchName" 
+          if($currentBranchName -eq $env:QA_ENV_NAME) {
+          $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:QA_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
+          }
+          elseif($currentBranchName -eq $env:QAFULL_ENV_NAME){ 
+          $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:QAFULL_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
+          } 
+          elseif($currentBranchName -eq $env:UAT_ENV_NAME){ 
+          $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:UAT_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
+          } 
+          elseif(($env:BUILD_SOURCEBRANCH).contains($env:PROD_ENV_NAME)){
+          $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:PROD_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
+          }
+          else{
+          $url = 'https://vsrm.dev.azure.com/sivaranjaniminuscule/Salesforce%20Demo/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:UAT_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
+          }
+          write-host "url: $url"
+          $header1 = @{Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"}
+          $url1 = "https://vsrm.dev.azure.com/sivaranjaniminuscule/Salesforce%20Demo/_apis/release/deployments?deploymentStatus=succeeded&definitionId=2&definitionEnvironmentId=2&queryOrder=descending?api-version=6.0"
+          write-host "url1: $url1"      
+          $response = Invoke-RestMethod -Uri $url1 -Headers $header1 -Method Get
+          $releaseCount = $response.count
+          Write-Host "Total Successfull Release : $releaseCount"
+          $prevCommitId = ""
+          if("$env:COMMIT_ID" -eq " " -or "")
+          {
+            if($releaseCount -ne 0)
+            {
+              $build = $response.value
+              $logicId = $($build[0].release.artifacts.definitionReference.sourceVersion.id)
+              $prevCommitId = $logicId
+              Write-Host "Previous Commit ID From last successfull Release : $prevCommitId"
+            }
+            else
+            {
+              $prevCommitId = $(git rev-parse HEAD^)
+              Write-Host "There is no successfull release for this Environment Id for now..."
+              Write-Host "Previous Commit Id : $prevCommitId"
+            }
+          }
+          else
+          {
+            Write-Host "Commit ID >>>>>>>>>>>>>>>>>>"
+            $prevCommitId = $env:COMMIT_ID.Trim()
+            Write-Host "Previous Commit Id : $prevCommitId"
+          }
+          Write-Host "Previous Commit ID : $prevCommitId"
+          md delta
+          Write-Host "Files : $env:IgnoreFiles"
+          $fileSplit = $env:IgnoreFiles.Split(" ")
+          New-Item .\ignorefiles
+          Set-Content .\ignorefiles  $fileSplit
+          
+          sfdx sgd:source:delta --from $prevCommitId -i ./ignorefiles --output delta/ --generate-delta 
+          Get-Content ./delta/package/package.xml
+          
+          $folder = "delta/src"
+          if (!(Test-Path -Path $folder)) {
+                md delta/src
+          }
+          $sourcePath = "delta/package/package.xml"
+          $destinationPath = "delta/src" 
+          Move-Item -path $sourcePath -destination $destinationPath
+          $packagePath = "delta/package"
+          $destructivePath = "delta/destructiveChanges" 
+          if ((!(Test-Path -Path $packagePath)) -or (!(Test-Path -Path $destructivePath))) {
+              Remove-Item $packagePath -Recurse
+              Remove-Item $destructivePath -Recurse
+          }
     - task: Task2@0
       inputs:
         script: |
