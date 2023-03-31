@@ -41,9 +41,6 @@ jobs:
       clean: true
       persistCredentials: true    - 
     - task: Task2@0
-      env:
-        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-        IgnoreFiles: $(ExcludedFiles)
       inputs:
         script: |
           Write-Host 'Installing sfdx cli'
@@ -55,6 +52,7 @@ jobs:
           Write-Host "$IgnoreFiledetails"
           $header = @{Authorization = 'Bearer $SysAccessToken'}
           Write-Host "$SysAccessToken"
+          $header = @{Authorization = 'Bearer $env:SYSTEM_ACCESSTOKEN'}
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
           write-host "branch : $currentBranchName" 
           if($currentBranchName -eq $env:QA_ENV_NAME) {
@@ -105,7 +103,6 @@ jobs:
           Write-Host "Previous Commit ID : $prevCommitId"
           md delta
           Write-Host "Files : $env:IgnoreFiles"
-
           $fileSplit = $env:IgnoreFiles.Split(" ")
           New-Item .\ignorefiles
           Set-Content .\ignorefiles  $fileSplit
@@ -116,17 +113,16 @@ jobs:
           $folder = "delta/src"
           if (!(Test-Path -Path $folder)) {
                 md delta/src
-          } 
-
+          }
           $sourcePath = "delta/package/package.xml"
           $destinationPath = "delta/src" 
           Move-Item -path $sourcePath -destination $destinationPath
-
           $packagePath = "delta/package"
           $destructivePath = "delta/destructiveChanges" 
           if ((!(Test-Path -Path $packagePath)) -or (!(Test-Path -Path $destructivePath))) {
               Remove-Item $packagePath -Recurse
               Remove-Item $destructivePath -Recurse
           }
+
 
 
