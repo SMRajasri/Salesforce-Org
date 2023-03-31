@@ -48,9 +48,7 @@ jobs:
           Write-Host "##vso[task.setvariable variable=myVar;]foo"
           Write-Host "##vso[task.setvariable variable=authorEmail;]TestEmail"
           Write-Host "##vso[task.setvariable variable=branchName;]Testbranch"
-          Write-Host "$(authorEmail)"
-          Write-Host "$(branchName)"
-          Write-Host "$(myVar)"
+          
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
