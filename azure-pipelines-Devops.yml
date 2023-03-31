@@ -40,6 +40,13 @@ jobs:
     - checkout: self
       clean: true
       persistCredentials: true    - 
+    - task: Task1@0
+      inputs:
+        script: |
+          echo 'Installing sfdx cli'
+          npm install -g sfdx-cli
+          echo 'Installing sfdx git delta'
+          echo y | sfdx plugins:install sfdx-git-delta
     - task: Task2@0
       env:
         SYSTEM_ACCESSTOKEN: $(System.AccessToken)
@@ -49,7 +56,7 @@ jobs:
           Write-Host 'Installing sfdx cli'
           npm install -g sfdx-cli
           Write-Host 'Installing sfdx git delta'
-          Write-Host y | sfdx plugins:install sfdx-git-delta
+          y | sfdx plugins:install sfdx-git-delta
           Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
           Write-Host "##vso[task.setvariable variable=IgnoreFiledetails;]${{ parameters.Excluded }}"
           Write-Host "$IgnoreFiledetails"
