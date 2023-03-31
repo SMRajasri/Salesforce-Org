@@ -55,5 +55,5 @@ jobs:
           # Write your PowerShell commands here.
           
           Write-Host "Hello World"
-          Write-Host "$PowerShell@2.authorEmail"
-          Write-Host "$PowerShell@2.branchName"
+          Write-Host "$(PowerShell@2.authorEmail)"
+          Write-Host "$(PowerShell@2.branchName)"
