@@ -43,6 +43,15 @@ jobs:
     - task: SalesforceTask2@0
       inputs:
         script: |
+          Write-Host 'Installing sfdx cli'
+          npm install -g sfdx-cli
+          Write-Host 'Installing sfdx git delta'
+          echo y | sfdx plugins:install sfdx-git-delta
+          Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
+          Write-Host "##vso[task.setvariable variable=IgnoreFiledetails;]${{ parameters.Excluded }}"
+          Write-Host "$IgnoreFiledetails"
+          $header = @{Authorization = 'Bearer $SysAccessToken'}
+          Write-Host "$SysAccessToken"
           $header = @{Authorization = 'Bearer $env:SYSTEM_ACCESSTOKEN'}
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
           write-host "branch : $currentBranchName" 
