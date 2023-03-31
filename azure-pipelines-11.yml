@@ -40,6 +40,12 @@ jobs:
     - checkout: self
       clean: true
       persistCredentials: true 
+    - task: SalesforceSetVariablesTask3@0
+      inputs:
+        displayName: 'Generate SFDX Git Delta'
+        DeploymentType: 'Delta'
+        CommitID: '2323'
+        ExcludedFiles: 'safdsdf'
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
@@ -56,6 +62,6 @@ jobs:
           # Write your PowerShell commands here.
           
           Write-Host "Hello World"
-          Write-Host "$(authorEmail)"
-          Write-Host "$(branchName)"
-          Write-Host "$(myVar)"
+          Write-Host "$(DeploymentType)"
+          Write-Host "$(CommitID)"
+          Write-Host "$(ExcludedFiles)"
