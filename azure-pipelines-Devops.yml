@@ -40,19 +40,27 @@ jobs:
     - checkout: self
       clean: true
       persistCredentials: true    - 
+    - task: SalesforceSetVariablesTask3@0
+      inputs:
+        displayName: 'Generate SFDX Git Delta'
+        DeploymentType: 'Delta'
     - task: Task1@0
       inputs:
         script: |
-          echo 'Installing sfdx cli'
-          npm install -g sfdx-cli
-          echo 'Installing sfdx git delta'
-          echo y | sfdx plugins:install sfdx-git-delta
+          #echo 'Installing sfdx cli'
+          #npm install -g sfdx-cli
+          #echo 'Installing sfdx git delta'
+          #echo y | sfdx plugins:install sfdx-git-delta
     - task: Task2@0
       env:
         SYSTEM_ACCESSTOKEN: $(System.AccessToken)
         IgnoreFiles: $(ExcludedFiles)
       inputs:
         script: |
+          Write-Host "$(DeploymentType)"
+          Write-Host "$(CommitID)"
+          Write-Host "$(ExcludedFiles)"
+          Write-Host "Get variables"
           Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
           Write-Host "##vso[task.setvariable variable=IgnoreFiledetails;]${{ parameters.Excluded }}"
           Write-Host "$IgnoreFiledetails"
