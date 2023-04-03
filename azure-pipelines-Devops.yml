@@ -63,8 +63,8 @@ jobs:
           Write-Host "$(ExcludedFiles)"
           Write-Host "Get variables"
           Write-Host "$IgnoreFiledetails"
-          $Deployment = $(DeploymentType)
-          $commit=$(CommitID)
+          $Deployment = "$(DeploymentType)""
+          $commit="$(CommitID)"
           $ExeFiles = $(ExcludedFiles)
           $header = @{Authorization = 'Bearer $(System.AccessToken)'}
           Write-Host "$SysAccessToken"
