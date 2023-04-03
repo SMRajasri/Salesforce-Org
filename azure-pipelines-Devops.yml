@@ -58,24 +58,13 @@ jobs:
         IgnoreFiles: $(ExcludedFiles)
       inputs:
         script: |
-          Write-Host "$(DeploymentType)"
-          Write-Host "$(CommitID)"
-          Write-Host "$(ExcludedFiles)"
-          Write-Host "Get variables"
+          Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
+          Write-Host "##vso[task.setvariable variable=IgnoreFiledetails;]${{ parameters.Excluded }}"
           Write-Host "$IgnoreFiledetails"
-          $Deployment = "$(DeploymentType)""
-          $commit="$(CommitID)"
-          $ExeFiles = $(ExcludedFiles)
-          $access = "$(System.AccessToken)"
-          Write-Host "$access"
-          
-          $header = @{Authorization = 'Bearer $access'}
-
-          Write-Host "$env:BUILD_SOURCEBRANCHNAME"
-
+          $header = @{Authorization = 'Bearer $SysAccessToken'}
+          Write-Host "$SysAccessToken"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
-
-          #Write-Host "branch : $currentBranchName" 
+          write-host "branch : $currentBranchName" 
           if($currentBranchName -eq $env:QA_ENV_NAME) {
           $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:QA_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
           }
@@ -99,7 +88,7 @@ jobs:
           $releaseCount = $response.count
           Write-Host "Total Successfull Release : $releaseCount"
           $prevCommitId = ""
-          if($commit -eq " " -or "")
+          if("$env:COMMIT_ID" -eq " " -or "")
           {
             if($releaseCount -ne 0)
             {
@@ -117,15 +106,15 @@ jobs:
           }
           else
           {
-            #Write-Host "Commit ID >>>>>>>>>>>>>>>>>>"
-            $prevCommitId = $commit.Trim()
+            Write-Host "Commit ID >>>>>>>>>>>>>>>>>>"
+            $prevCommitId = $env:COMMIT_ID.Trim()
             Write-Host "Previous Commit Id : $prevCommitId"
           }
           Write-Host "Previous Commit ID : $prevCommitId"
           md delta
-          Write-Host "Files : $ExeFiles"
+          Write-Host "Files : $env:IgnoreFiles"
 
-          $fileSplit = $ExeFiles.Split(" ")
+          $fileSplit = $env:IgnoreFiles.Split(" ")
           New-Item .\ignorefiles
           Set-Content .\ignorefiles  $fileSplit
           
