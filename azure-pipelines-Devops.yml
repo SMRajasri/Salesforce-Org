@@ -70,8 +70,8 @@ jobs:
           Write-Host "$access"
           
           Write-Host "$Deployment"
-          $header = @{Authorization = 'Bearer $SysAccessToken'}
-          Write-Host "$SysAccessToken"
+          $header = @{Authorization = 'Bearer $(System.AccessToken)'}
+          Write-Host "$(System.AccessToken)"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
           write-host "branch : $currentBranchName" 
           if($currentBranchName -eq $env:QA_ENV_NAME) {
@@ -97,7 +97,7 @@ jobs:
           $releaseCount = $response.count
           Write-Host "Total Successfull Release : $releaseCount"
           $prevCommitId = ""
-          if("$env:COMMIT_ID" -eq " " -or "")
+          if("$commit" -eq " " -or "")
           {
             if($releaseCount -ne 0)
             {
@@ -116,14 +116,14 @@ jobs:
           else
           {
             Write-Host "Commit ID >>>>>>>>>>>>>>>>>>"
-            $prevCommitId = $env:COMMIT_ID.Trim()
+            $prevCommitId = $commit.Trim()
             Write-Host "Previous Commit Id : $prevCommitId"
           }
           Write-Host "Previous Commit ID : $prevCommitId"
           md delta
-          Write-Host "Files : $env:IgnoreFiles"
+          Write-Host "Files : $ExeFiles"
 
-          $fileSplit = $env:IgnoreFiles.Split(" ")
+          $fileSplit = $ExeFiles.Split(" ")
           New-Item .\ignorefiles
           Set-Content .\ignorefiles  $fileSplit
           
