@@ -68,7 +68,7 @@ jobs:
           $ExeFiles = $(ExcludedFiles)
           $access = "$(System.AccessToken)"
           Write-Host "$access"
-          $header = @{Authorization = "Bearer $access"}
+          $header = @{Authorization = 'Bearer $access'}
           Write-Host "$SysAccessToken"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
           write-host "branch : $currentBranchName" 
