@@ -66,7 +66,9 @@ jobs:
           $Deployment = "$(DeploymentType)""
           $commit="$(CommitID)"
           $ExeFiles = $(ExcludedFiles)
-          $header = @{Authorization = 'Bearer $(System.AccessToken)'}
+          $access = "$(System.AccessToken)"
+          Write-Host "$access"
+          $header = @{Authorization = "Bearer $access"}
           Write-Host "$SysAccessToken"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
           write-host "branch : $currentBranchName" 
