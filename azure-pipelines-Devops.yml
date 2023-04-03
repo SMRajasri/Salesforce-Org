@@ -71,7 +71,7 @@ jobs:
           $header = @{Authorization = 'Bearer $access'}
           Write-Host "$env:BUILD_SOURCEBRANCHNAME"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
-          write-host "branch : $currentBranchName" 
+          #write-host "branch : $currentBranchName" 
           if($currentBranchName -eq $env:QA_ENV_NAME) {
           $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:QA_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
           }
