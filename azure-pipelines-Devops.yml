@@ -58,6 +58,14 @@ jobs:
         IgnoreFiles: $(ExcludedFiles)
       inputs:
         script: |
+          $Deployment = "$(DeploymentType)""
+          $commit="$(CommitID)"
+          $ExeFiles = $(ExcludedFiles)
+          $access = "$(System.AccessToken)"
+          Write-Host "$Deployment"
+          Write-Host "$commit"
+          Write-Host "$ExeFiles"
+          Write-Host "$access"
           Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
           Write-Host "##vso[task.setvariable variable=IgnoreFiledetails;]${{ parameters.Excluded }}"
           Write-Host "$IgnoreFiledetails"
