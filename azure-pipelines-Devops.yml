@@ -69,7 +69,7 @@ jobs:
           $access = "$(System.AccessToken)"
           Write-Host "$access"
           $header = @{Authorization = 'Bearer $access'}
-          Write-Host "$SysAccessToken"
+          Write-Host "$env:BUILD_SOURCEBRANCHNAME"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
           write-host "branch : $currentBranchName" 
           if($currentBranchName -eq $env:QA_ENV_NAME) {
