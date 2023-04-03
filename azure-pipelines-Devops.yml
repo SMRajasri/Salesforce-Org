@@ -68,10 +68,14 @@ jobs:
           $ExeFiles = $(ExcludedFiles)
           $access = "$(System.AccessToken)"
           Write-Host "$access"
+          
           $header = @{Authorization = 'Bearer $access'}
+
           Write-Host "$env:BUILD_SOURCEBRANCHNAME"
+
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
-          #write-host "branch : $currentBranchName" 
+
+          #Write-Host "branch : $currentBranchName" 
           if($currentBranchName -eq $env:QA_ENV_NAME) {
           $url = $env:CORE_SERVER+$env:ORGANIZATION+$env:SYSTEM_TEAMPROJECT+'/_apis/release/deployments?deploymentStatus=succeeded&definitionId='+$env:DEFINITIONID+'&definitionEnvironmentId='+$env:QA_ENVIRONMENTID+'&queryOrder=descending?'+$env:API_VERSION
           }
@@ -113,7 +117,7 @@ jobs:
           }
           else
           {
-            Write-Host "Commit ID >>>>>>>>>>>>>>>>>>"
+            #Write-Host "Commit ID >>>>>>>>>>>>>>>>>>"
             $prevCommitId = $commit.Trim()
             Write-Host "Previous Commit Id : $prevCommitId"
           }
