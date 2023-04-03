@@ -58,17 +58,18 @@ jobs:
         IgnoreFiles: $(ExcludedFiles)
       inputs:
         script: |
-          $Deployment = "$(DeploymentType)""
+          Write-Host "$(DeploymentType)"
+          Write-Host "$(CommitID)"
+          Write-Host "$(ExcludedFiles)"
+          Write-Host "Get variables"
+          Write-Host "$IgnoreFiledetails"
+          $Deployment = "$(DeploymentType)"
           $commit="$(CommitID)"
           $ExeFiles = $(ExcludedFiles)
           $access = "$(System.AccessToken)"
-          Write-Host "$Deployment"
-          Write-Host "$commit"
-          Write-Host "$ExeFiles"
           Write-Host "$access"
-          Write-Host "##vso[task.setvariable variable=SysAccessToken;]$(System.AccessToken)"
-          Write-Host "##vso[task.setvariable variable=IgnoreFiledetails;]${{ parameters.Excluded }}"
-          Write-Host "$IgnoreFiledetails"
+          
+          Write-Host "$Deployment"
           $header = @{Authorization = 'Bearer $SysAccessToken'}
           Write-Host "$SysAccessToken"
           $currentBranchName = $($env:BUILD_SOURCEBRANCHNAME -replace '.*/','')
